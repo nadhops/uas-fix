@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/onsenui.css">
+	<link rel="stylesheet" type="text/css" href="css/onsen-css-components.css">
+	<script src="js/onsenui.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/main.js"></script>
+	<title>CRUD BARANG</title>
+	<style type="text/css">
+    .bg {
+      background-color: #9FA8DA;
+    }
+    #menu .page__background {
+      background-color: #ffffff;
+    }
+  </style>
+</head>
+
+<body>
+	<ons-splitter>
+	  <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
+	    <ons-page>
+	      <ons-list>
+	        <ons-list-item onclick="fn.load('home.html')" tappable>
+	          Beranda
+	        </ons-list-item>
+	        <ons-list-item onclick="fn.load('barang.html');" tappable>
+	          Barang
+	        </ons-list-item>
+	        <ons-list-item onclick="fn.load('masuk.html')" tappable>
+	          Barang Masuk
+	        </ons-list-item>
+	        <ons-list-item onclick="document.addEventListener('deviceready', onDeviceReady, true); navigator.app.exitApp();" tappable>
+	          Exit
+	        </ons-list-item>
+	      </ons-list>
+	    </ons-page>
+	  </ons-splitter-side>
+	  <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
+	</ons-splitter>
+
+	<template id="home.html">
+	  <ons-page>
+	    <ons-toolbar class="bg">
+	      <div class="left">
+	        <ons-toolbar-button onclick="fn.open()">
+	          <ons-icon icon="md-menu"></ons-icon>
+	        </ons-toolbar-button>
+	      </div>
+	      <div class="center">
+	       	Beranda
+	      </div>
+	    </ons-toolbar>
+	    <ons-card>
+	    	<center><b>Halaman Beranda</b></center>
+	    </ons-card>
+	  </ons-page>
+	</template>
+
+	<template id="barang.html">
+	  <ons-page>
+	    <ons-toolbar class="bg">
+	      <div class="left">
+	        <ons-toolbar-button onclick="fn.open()">
+	          <ons-icon icon="md-menu"></ons-icon>
+	        </ons-toolbar-button>
+	      </div>
+	      <div class="center">
+	        Barang
+	      </div>
+	    </ons-toolbar>
+	    
+      	<div style="height: 200px; padding: 1px 0 0 0;">
+		  <div class="card card--material">
+		    <div class="card__title card--material__title">Input Data Barang</div>
+		    <div class="card__content card--material__content">
+		     <form id="input" onsubmit="barang_add()">
+		    	<span>
+				  <div>Nama Barang  &emsp;<input class="text-input text-input--material" id="nama" placeholder="Nama Barang..." type="text" required></div>
+				  <br />
+				  <div>Deskripsi  &emsp;&emsp;&emsp;<textarea class="textarea" rows="3" placeholder="Deskripsi Barang..." id="deskripsi" required></textarea></div>
+				  <br/>
+				  <div>Satuan  &emsp;&emsp;&emsp;&emsp;<input class="text-input text-input--material" placeholder="Satuan" id="satuan" type="text" required></div>
+				  <br/>
+				  <button id="simpan_barang" type="submit" class="button button--material" >Simpan</button>
+				  <button id="reset_barang" type="reset" class="button button--material">Reset</button>
+				</span>
+			 </form>
+		    </div>
+		  </div>
+
+		  <div class="card card--material">
+		    <div class="card__title card--material__title">Data Barang</div>
+		    <div class="card__content card--material__content">
+		    	<ul class="list list--material" id="list_barang"></ul>
+		    </div>
+		  </div>
+		</div>
+	   
+	  </ons-page>
+	</template>
+
+	<template id="masuk.html">
+	  <ons-page>
+	    <ons-toolbar class="bg">
+	      <div class="left">
+	        <ons-toolbar-button onclick="fn.open()">
+	          <ons-icon icon="md-menu"></ons-icon>
+	        </ons-toolbar-button>
+	      </div>
+	      <div class="center">
+	        Barang Masuk
+	      </div>
+	    </ons-toolbar>
+
+	    <div style="height: 200px; padding: 1px 0 0 0;">
+		  	<div class="card card--material">
+			    <div class="card__title card--material__title">Input Barang Masuk</div>
+			    <div class="card__content card--material__content">
+			     <form id="masuk" onsubmit="masuk_add()">
+			    	<span>
+					  <div>Tanggal &nbsp;  &emsp;&emsp;&emsp;<input class="text-input text-input--material" id="tgl" type="date" required></div>
+					  <br />
+					  <div>Nama Barang  &emsp;
+					  <ons-select>
+			            <select id="nama_tambah" style="width:100%" required>
+			                <option value="">Pilih Barang</option>
+			            </select>
+			           </ons-select>
+			          </div>
+					  <br/>
+					  <div>Jumlah &nbsp;  &emsp;&emsp;&emsp; <input class="text-input text-input--material" id="jumlah" placeholder="Jumah Barang..." type="text" required></div>
+					  <br/>
+					  <button class="button button--material" type="submit" id="simpan_masuk">Simpan</button>
+					</span>
+				 </form>
+			    </div>
+		  	</div>
+
+		    <div class="card card--material">
+			    <div class="card__title card--material__title">Data</div>
+			    <div class="card__content card--material__content">
+			    	<ul class="list list--material" id="list_masuk"></ul>
+			    </div>
+			</div>
+		</div>
+	  </ons-page>
+	</template>
+
+</body>
+</html>
